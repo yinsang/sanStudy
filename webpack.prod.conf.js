@@ -6,6 +6,8 @@ const merged =merge(baseConfig,{
   mode:'production',
   resolve: {
     alias: {
+      san:'san/dist/san.js'
+      
     }
   },
   plugins:[

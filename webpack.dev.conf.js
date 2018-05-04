@@ -6,6 +6,11 @@ const merged =merge(baseConfig,{
     contentBase: __dirname + '/client/dist',
     compress: true,
     port: 9000
+  },
+  resolve:{
+    alias:{
+      san:'san/dist/san.dev.js'
+    }
   }
 })
 module.exports = merged;

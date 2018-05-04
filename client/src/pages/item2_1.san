@@ -1,0 +1,85 @@
+<template>
+    <div class="person">
+        <ul s-ref='test'>
+            <li><input type="text" value="{= person.name =}" placeholder="姓名(string)"></li>
+            <!--这里不能双向绑定-->
+            <li><input type="number" value="{= person.ageCopy =}" placeholder="年龄(number)" on-input="setAge"></li>
+            <li><input type="text" value="{= person.des =}" placeholder="简介(string)"></li>
+        </ul>
+        <div>
+            信息：
+            <input type="button" on-click="clearInfo" value="移除信息">
+            <ul>
+                <li class="test1">姓名：{{person.name}}</li>
+                <li>年龄：{{person.age}}</li>
+                <li>简介：{{person.des}}</li>
+            </ul>
+        </div>
+        看到这个2-1的题目，以为很简单，实则不然，看了很多人的代码，几乎没有对的，很多人只知其然不知所以然 ：）
+        看到题目，我的的第一反应是双向绑定，就一脚踏进了坑里。
+        因为input(包括type=number)的value值是string类型，所以不能直接做age的双向绑定,name/des则可以
+        由于age设置了强校验number，所以用input就不行，如果用person.age就过不了校验。
+        但是age又必须用input设置，就存在以下问题：
+        <ol>
+            <li>能不能在age输入string？
+            答案是不行。所以用input type=number去规避</li>
+            <li>很多人直接用this.data.set("person.age", isNaN(parseInt(this.data.get("age"))) ? undefined : parseInt(this.data.get(
+          "age")));这一套。殊不知有些业务场景需要浮点型而不是整数，所以我选择了Number（）方式</li>
+            <li>用户粘贴string到age怎么办？
+        由于type=number，粘贴会导致value=undefined。Number（undefined）为0，成功规避了这个问题。也可以进行报错，或者其他。</li>
+            <li>双向绑定能不能做？可以。watch数据？这应该不是2-1考察的范围，有兴趣的可以试一下
+         ：）</li>
+            <li>clearAll函数的写法，全部设置为undefined当然可以。但是根据DRY原则，直接初始化比较优雅。略微测试了一下 san的数据是一个拷贝而不是引用。
+        如有疑问，请联系我 love1175180338@gmail.com
+        有更好的解决方案请指出。
+        ：）</li>
+            <li>一些吐槽
+        vscode的.prettierrc不能识别.san的啊。格式化好麻烦，难道是我不会？ ：（
+        this.ref竟然是一个函数 ， 好不习惯  ：《</li>
+        </ol>
+    </div>
+</template>
+
+<script>
+    import {DataTypes} from 'san'
+    const person = {
+         name: undefined,
+         age: undefined,
+         ageCopy:undefined,
+         des: undefined,
+    }
+    export default {
+        initData () {
+            // 由于input(包括type=number)的值是string类型，所以不能直接做age的双向绑定,name/des则可以
+            return {
+                person
+            };
+        },
+        created(){
+            setTimeout(()=>{
+                // this.data.set('person.age', 11);
+                // console.log(this.data.get('age'));
+                // console.log(this.data.get('person.age'));
+            }, 3000)
+        },
+        setAge(){
+            this.data.set("person.age", Number(this.data.get("person.ageCopy")));
+        },
+        clearInfo(){
+            this.data.set('person', person)
+        },
+        dataTypes:{
+            person:DataTypes.shape({
+                name: DataTypes.string,
+                age: DataTypes.number,
+                des: DataTypes.string,
+            })
+        }
+    }
+</script>
+
+<style>
+    input[type="button"]{
+        border:1px solid red;
+    }
+</style>

@@ -5,7 +5,7 @@ module.exports = {
     index:'./client/src/index.js',
   },
   output:{
-    filename:'[name][id].bundle.js',
+    filename:'[name].bundle.js',
     path:__dirname + '/client/dist'
   },
   module:{
@@ -18,10 +18,14 @@ module.exports = {
         test:/\.js$/,
         use:['babel-loader']
       },
+      {
+        test:/\.san$/,
+        use:['san-loader']
+      },
     ]
   },
   resolve:{
-    extensions: ['.js'],
+    extensions: ['.js', '.san'],
   },
   plugins:[
     new WebpackOnBuildPlugin(()=>{
