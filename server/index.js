@@ -2,6 +2,7 @@ const http = require('http')
 const fs = require('fs')
 const httpPort = 80
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 http.createServer((req, res) => {
   fs.readFile('index.htm', 'utf-8', (err, content) => {
     if (err) {

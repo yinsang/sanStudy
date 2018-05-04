@@ -6,7 +6,6 @@ const merged =merge(baseConfig,{
   mode:'production',
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
     }
   },
   plugins:[

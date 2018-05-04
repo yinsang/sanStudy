@@ -8,5 +8,4 @@ const merged =merge(baseConfig,{
     port: 9000
   }
 })
-console.log(merged);
 module.exports = merged;

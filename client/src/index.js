@@ -1,10 +1,17 @@
-import App from './app'
-import Vue from 'vue'
-import router from './router'
-import VueRouter from 'vue-router'
-console.log(router);
-const vm = new Vue({
-  router,
-  render:h=>h(App)
-}).$mount('#app')
-console.log(vm);
+import "./index.css";
+import san from "san";
+const MyApp = san.defineComponent({
+  template: `<div>hello world , san</div>`
+});
+let myApp = new MyApp({
+  data: {
+    name:'San'
+  }
+});
+myApp.attach(document.body)
+
+console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+console.log("index");
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1];
+console.log(arr2);

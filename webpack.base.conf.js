@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
-
+const WebpackOnBuildPlugin = require('on-build-webpack');
 module.exports = {
   entry:{
     index:'./client/src/index.js',
@@ -12,24 +11,27 @@ module.exports = {
   module:{
     rules:[
       {
-        test:/\.vue$/,
-        use:'vue-loader'
-      }
+        test:/\.css$/,
+        use:['style-loader', 'css-loader']
+      },
+      {
+        test:/\.js$/,
+        use:['babel-loader']
+      },
     ]
   },
   resolve:{
-    extensions: ['.vue', '.js'],
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    }
+    extensions: ['.js'],
   },
   plugins:[
+    new WebpackOnBuildPlugin(()=>{
+      console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+    }),
     new HtmlWebpackPlugin({
       title:'hello',
       filename: 'index.html',
       chunks:['index'],
       template: './client/src/index.html'
     }),
-    new VueLoaderPlugin()
   ],
 }
