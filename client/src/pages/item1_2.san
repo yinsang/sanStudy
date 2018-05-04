@@ -1,0 +1,12 @@
+<template>
+    <div>hello, {{msg}}</div>
+</template>
+<script>
+export default {
+    initData(){
+        return {
+            msg:'san'
+        }
+    }
+}
+</script>
