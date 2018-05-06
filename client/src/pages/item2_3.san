@@ -1,0 +1,39 @@
+<template>
+  <div class="container">
+   <div class="block {{isActive ? 'active' : ''}}" on-click="handleClassClick">{{isActive}}</div>
+   <div class='style-block' style="{{'background:' + color}}" on-click="handleStyleClick">{{color}}</div>
+  </div>
+</template>
+<script>
+export default {
+  initData(){
+    return {
+      isActive: false,
+      color:'red'
+    }
+  }, 
+  handleClassClick(){
+    const isActive = this.data.get('isActive');
+    this.data.set('isActive', !isActive);
+  },
+  handleStyleClick(){
+    this.data.get('color') === 'red' ? this.data.set('color', 'blue') : this.data.set('color', 'red');
+  }
+}
+</script>
+<style scoped>
+.block{
+  width: 100px;
+  height: 100px;
+  background: red;
+}
+.block.active{
+  background: blue;
+}
+.style-block{
+  width: 100px;
+  height: 100px;
+  margin-top: 10px;;
+}
+</style>
+

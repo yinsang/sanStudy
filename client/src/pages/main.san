@@ -22,7 +22,7 @@ export default {
 // 这里有坑！
 // https://github.com/baidu/san/issues/289
 </script>
-<style>
+<style scoped>
   li{
     border:1px solid red;
     display:inline-block;

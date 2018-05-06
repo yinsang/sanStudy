@@ -91,5 +91,8 @@
     }
 </script>
 
-<style >
+<style scoped>
+td{
+    border:1px solid red;
+}
 </style>
